@@ -33,22 +33,6 @@ sys.stderr = Logger
 class France2GUI(xbmcgui.Window):
   """France2 browser GUI."""
 
-  # GUI States.
-  STATE_MAIN = 1
-  STATE_FEEDS = 2
-  STATE_USERS = 4
-  STATE_MOST_DISCUSSED = STATE_FEEDS | 8
-  STATE_MOST_VIEWED = STATE_MOST_DISCUSSED | 16
-  STATE_SEARCH = 32
-  STATE_USERS = 64
-
-  # Content list states
-  CONTENT_STATE_NONE = 0
-  CONTENT_STATE_VIDEO = 1
-  CONTENT_STATE_USERS = 2
-  CONTENT_STATE_FAVORITES = 4
-  CONTENT_STATE_SEARCH_HISTORY = 8
-
   def __init__(self):
     """Setup the default skin"""
 
@@ -60,9 +44,6 @@ class France2GUI(xbmcgui.Window):
       self.data = []
 
       self.f2 = france2.France2()
-
-      self.state = France2GUI.STATE_MAIN
-      self.list_state = France2GUI.CONTENT_STATE_NONE
 
       self.cxt = xbmcutils.gui.ContextMenu()
 
