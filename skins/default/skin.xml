@@ -1,0 +1,42 @@
+<window>
+
+  <defaultcontrol always="true">2</defaultcontrol>
+  <resolution>PAL16x9</resolution>
+  <useincludes>false</useincludes>
+
+  <controls>
+    <control type="image" id="1">
+      <description>Background Image</description>
+      <posx>0</posx>
+      <posy>0</posy>
+      <width>720</width>
+      <height>576</height>
+      <texture>\background-f2-2.jpg</texture>
+    </control>
+
+    <control type="list" id="2">
+      <description>Program List</description>
+      <font>font60</font>
+      <posx>20</posx>
+      <posy>115</posy>
+      <width>130</width>
+      <height>435</height>
+      <textcolor>FFFFFFFF</textcolor>
+      <selectedcolor>FFFFFF00</selectedcolor>
+      <textureup>scroll-up.png</textureup>
+      <texturedown>scroll-down.png</texturedown>
+      <textureupfocus>scroll-up-focus.png</textureupfocus>
+      <texturedownfocus>scroll-down-focus.png</texturedownfocus>
+      <texturefocus>\list-focus.png</texturefocus>
+      <texturenofocus>\list-nofocus.png</texturenofocus>
+      <textureheight>46</textureheight>
+      <textxoff>-20</textxoff>
+      <suffix>|</suffix>
+      <aligny>center</aligny>
+      <onup>100</onup>
+      <ondown>100</ondown>
+      <onleft>10</onleft>
+    </control>
+
+  </controls>
+</window>
