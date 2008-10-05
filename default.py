@@ -41,12 +41,7 @@ class France2GUI(xbmcgui.Window):
       if not self.load_skin('default'):
         self.close()
 
-      self.data = []
-
       self.f2 = france2.France2()
-
-      self.cxt = xbmcutils.gui.ContextMenu()
-
       self.player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER)
 
       main_list = self.get_control('Program List')
@@ -62,15 +57,11 @@ class France2GUI(xbmcgui.Window):
 
   def load_skin(self, name=None):
     """Loads the GUI skin."""
-
     if not name:
       name = 'default'
-
     skin_path = os.path.join(self.base_path, 'skins', name)
     skin = os.path.join(skin_path, 'skin.xml')
-
     self.img_path = os.path.join(skin_path, 'gfx')
-
     xbmcutils.guibuilder.GUIBuilder(self, skin, self.img_path,
                                     useDescAsKey=True, fastMethod=True)
 
@@ -78,20 +69,12 @@ class France2GUI(xbmcgui.Window):
 
   def show_about(self):
     """Show an 'About' dialog."""
-
     dlg = xbmcgui.Dialog()
     dlg.ok('A propos', 'Par Erwan Loisant, 2008')
 
   def get_control(self, desc):
     """Return the control that matches the widget description."""
-
     return self.controls[desc]['control']
-
-  def progress_handler(self, done, total, dlg):
-    """Update progress dialog percent and return abort status."""
-    percent = int((done * 100.0) / total)
-    dlg.update(percent)
-    return not dlg.iscanceled()
 
   def play_jt(self, jt):
     """Get the url for the id and start playback."""
@@ -100,7 +83,6 @@ class France2GUI(xbmcgui.Window):
 
   def onAction(self, action):
     """Handle user input events."""
-
     try: 
       if action == xbmcutils.gui.ACTION_PREVIOUS_MENU:
         self.close()
