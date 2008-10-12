@@ -81,9 +81,18 @@ class France2GUI(xbmcgui.Window):
     jt = self.f2.get_lastjt(jt)
     self.player.play(jt["url"])
 
+  def refresh_label(self):
+    main_list = self.get_control('Program List')
+    pos = main_list.getSelectedPosition()
+    program = self.f2.PROGRAMS[pos]
+    info = self.f2.get_lastjt(program[0])
+    lbl = self.get_control('edition name')
+    lbl.setLabel(info["name"])
+
   def onAction(self, action):
     """Handle user input events."""
-    try: 
+    try:
+      self.refresh_label()
       if action == xbmcutils.gui.ACTION_PREVIOUS_MENU:
         self.close()
     except:
