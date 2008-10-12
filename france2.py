@@ -59,6 +59,12 @@ class France2:
     self.base_path = os.getcwd().replace(';','')
     # mms://sdmc.contents.edgestreams.net/horsgv/regions/siege/infos/f2/20h/HD_20h_20080925.wmv
     self.stream_pattern = re.compile('src="(mms://[^"]+)"')
+    self.name_pattern = re.compile('<div class="editiondate"><h1>([^<>]+)</h1></div>')
+
+    # Cache info so we don't retrieve it every time
+    self.cache = {
+      
+    }
 
     # Callback related stuff
     self.report_hook = None
@@ -76,11 +82,19 @@ class France2:
 
   def get_lastjt(self, program):
     """Get the URL for the most recent 'program'"""
+    if program in self.cache:
+      return self.cache[program]
+
     page_url = self.PLAYER_URL.replace("%program%", program)
     html = self.retrieve(page_url)
     match = self.stream_pattern.search(html)
     if match != None:
       stream_url = match.group(1)
-      return stream_url
-
-    return None
+    match2 = self.name_pattern.search(html)
+    if match2 != None:
+      name = match2.group(1)
+    self.cache[program] = {
+      "url": stream_url,
+      "name": name
+    }
+    return self.cache[program]

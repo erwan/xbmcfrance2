@@ -78,8 +78,8 @@ class France2GUI(xbmcgui.Window):
 
   def play_jt(self, jt):
     """Get the url for the id and start playback."""
-    url = self.f2.get_lastjt(jt)
-    self.player.play(url)
+    jt = self.f2.get_lastjt(jt)
+    self.player.play(jt["url"])
 
   def onAction(self, action):
     """Handle user input events."""

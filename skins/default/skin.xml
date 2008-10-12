@@ -38,5 +38,18 @@
       <onleft>10</onleft>
     </control>
 
+    <control type="label" id="5">
+      <description>edition name</description>
+      <width>427</width>
+      <posx>400</posx>
+      <posy>30</posy>
+      <align>center</align>
+      <aligny>center</aligny>
+      <label> </label>
+      <font>font13</font>
+      <textcolor>FFFFFFFF</textcolor>
+    </control>
+
+
   </controls>
 </window>
