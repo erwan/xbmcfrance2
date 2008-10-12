@@ -16,10 +16,10 @@
 
     <control type="list" id="2">
       <description>Program List</description>
-      <font>font60</font>
+      <font>LargeTitleCapsFont</font>
       <posx>20</posx>
       <posy>115</posy>
-      <width>130</width>
+      <width>145</width>
       <height>435</height>
       <textcolor>FFFFFFFF</textcolor>
       <selectedcolor>FFFFFF00</selectedcolor>
@@ -38,15 +38,15 @@
       <onleft>10</onleft>
     </control>
 
-    <control type="label" id="5">
+    <control type="button" id="5">
       <description>edition name</description>
       <width>427</width>
-      <posx>400</posx>
+      <posx>300</posx>
       <posy>30</posy>
       <align>center</align>
       <aligny>center</aligny>
       <label> </label>
-      <font>font13</font>
+      <font>LargeTitleCapsFont</font>
       <textcolor>FFFFFFFF</textcolor>
     </control>
 
