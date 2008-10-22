@@ -45,10 +45,9 @@ class France2GUI(xbmcgui.Window):
       self.player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER)
 
       main_list = self.get_control('Program List')
-      for jt in self.f2.PROGRAMS:
-        main_list.addItem(xbmcgui.ListItem(label=jt[1]))
+      for jt in self.f2.LABELS:
+        main_list.addItem(xbmcgui.ListItem(label=jt))
       self.setFocus(main_list)
-      prefetch_info()
 
     except:
       xbmc.log('Exception (init): ' + str(sys.exc_info()[0]))
@@ -76,22 +75,18 @@ class France2GUI(xbmcgui.Window):
     """Return the control that matches the widget description."""
     return self.controls[desc]['control']
 
-  def play_jt(self, jt):
+  def play_jt(self, pos):
     """Get the url for the id and start playback."""
-    jt = self.f2.get_lastjt(jt)
+    jt = self.f2.get_lastjt(pos)
     self.player.play(jt["url"])
-
-  def prefetch_info(self):
-    for jt in self.f2.PROGRAMS:
-      self.f2.get_lastjt(jt[0])
 
   def refresh_label(self):
     main_list = self.get_control('Program List')
     pos = main_list.getSelectedPosition()
     program = self.f2.PROGRAMS[pos]
-    info = self.f2.get_lastjt(program[0])
+    info = self.f2.get_lastjt(pos)
     lbl = self.get_control('edition name')
-    lbl.setLabel(program[0] + " : " + info["name"])
+    lbl.setLabel(program + " : " + info["name"])
 
   def onAction(self, action):
     """Handle user input events."""
@@ -110,7 +105,7 @@ class France2GUI(xbmcgui.Window):
       if ctrl is self.get_control('Program List'):
         pos = ctrl.getSelectedPosition()
         program = self.f2.PROGRAMS[pos]
-        self.play_jt(program[0])
+        self.play_jt(pos)
     except:
       xbmc.log('Exception (onControl): ' + str(sys.exc_info()[0]))
       traceback.print_exc()

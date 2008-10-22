@@ -48,17 +48,19 @@ class PrivilegeError(Exception):
 class France2:
   """France2 web grabber class."""
 
-  PLAYER_URL = "http://jt.france2.fr/player/%program%/index-fr.php"
-  PROGRAMS = [
-    ["8h", "Journal de 8H"],
-    ["13h", "Journal de 13H"],
-    ["20h", "Journal de 20H"]
+  PROGRAMS = ["8h", "13h", "20h", "Sans Frontieres"]
+  LABELS = ["Journal de 8H", "Journal de 13H", "Journal de 20H", "Sans Frontieres"]
+  PLAYERS = [
+    "http://jt.france2.fr/player/8h/index-fr.php",
+    "http://jt.france2.fr/player/13h/index-fr.php",
+    "http://jt.france2.fr/player/20h/index-fr.php",
+    "http://sansfrontieres.france2.fr/"
   ]
 
   def __init__(self):
     self.base_path = os.getcwd().replace(';','')
     # mms://sdmc.contents.edgestreams.net/horsgv/regions/siege/infos/f2/20h/HD_20h_20080925.wmv
-    self.stream_pattern = re.compile('src="(mms://[^"]+)"')
+    self.stream_pattern = re.compile('"(mms://[^"]+)"')
     self.name_pattern = re.compile('<div class="editiondate"><h1>([^<>]+)</h1></div>')
 
     # Cache info so we don't retrieve it every time
@@ -78,21 +80,41 @@ class France2:
 
     return data
 
-  def get_lastjt(self, program):
+  def get_lastjt(self, pos):
     """Get the URL for the most recent 'program'"""
-    if program in self.cache:
-      return self.cache[program]
+    if pos in self.cache:
+      return self.cache[pos]
 
-    page_url = self.PLAYER_URL.replace("%program%", program)
+    page_url = self.PLAYERS[pos]
     html = self.retrieve(page_url)
-    match = self.stream_pattern.search(html)
-    if match != None:
-      stream_url = match.group(1)
-    match2 = self.name_pattern.search(html)
-    if match2 != None:
-      name = match2.group(1)
-    self.cache[program] = {
+
+    # TODO: make all that stuff generic!!
+    if pos == 3:
+      # Special case for "Sans Frontieres"
+      asx = re.compile('http://videojts.francetv.fr/player/script.php\?pn=VideoPlayer&url=([^&]+)&')
+      match = asx.search(html)
+      url = page_url + match.group(1)
+      html2 = self.retrieve(url)
+      match3 = self.stream_pattern.search(html2)
+      if match3 != None:
+        stream_url = match3.group(1)
+      # Name
+      name_regexp = re.compile('<span class="etxblanc14">([^<>]+)</span>')
+      date_regexp = re.compile('<span class="etxtblanc10">([^<>]+)</span>')
+      name_match = name_regexp.search(html)
+      date_match = date_regexp.search(html)
+      name = name_match.group(1) + " (" + date_match.group(1) + ")"
+    else:
+      # The news (JT)
+      match = self.stream_pattern.search(html)
+      if match != None:
+        stream_url = match.group(1)
+      match2 = self.name_pattern.search(html)
+      if match2 != None:
+        name = match2.group(1)
+
+    self.cache[pos] = {
       "url": stream_url,
       "name": name
     }
-    return self.cache[program]
+    return self.cache[pos]
