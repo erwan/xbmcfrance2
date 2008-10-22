@@ -108,16 +108,14 @@ class France2GUI(xbmcgui.Window):
     """Handle widget events."""
     try: 
       if ctrl is self.get_control('Program List'):
-        self.on_control_program(ctrl)
+        pos = ctrl.getSelectedPosition()
+        program = self.f2.PROGRAMS[pos]
+        self.play_jt(program[0])
     except:
       xbmc.log('Exception (onControl): ' + str(sys.exc_info()[0]))
       traceback.print_exc()
       self.close()
 
-  def on_control_program(self, ctrl):
-    pos = ctrl.getSelectedPosition()
-    program = self.f2.PROGRAMS[pos]
-    self.play_jt(program[0])
 
 f2 = France2GUI()
 f2.doModal()
