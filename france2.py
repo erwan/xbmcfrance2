@@ -62,9 +62,7 @@ class France2:
     self.name_pattern = re.compile('<div class="editiondate"><h1>([^<>]+)</h1></div>')
 
     # Cache info so we don't retrieve it every time
-    self.cache = {
-      
-    }
+    self.cache = {}
 
     # Callback related stuff
     self.report_hook = None

@@ -45,9 +45,8 @@ class France2GUI(xbmcgui.Window):
       self.player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER)
 
       main_list = self.get_control('Program List')
-      main_list.addItem(xbmcgui.ListItem(label="Journal de 8H"))
-      main_list.addItem(xbmcgui.ListItem(label="Journal de 13H"))
-      main_list.addItem(xbmcgui.ListItem(label="Journal de 20H"))
+      for jt in self.f2.PROGRAMS:
+        main_list.addItem(xbmcgui.ListItem(label=jt[1]))
       self.setFocus(main_list)
       prefetch_info()
 
