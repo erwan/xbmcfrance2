@@ -48,8 +48,10 @@ class PrivilegeError(Exception):
 class France2:
   """France2 web grabber class."""
 
-  PROGRAMS = ["8h", "13h", "20h", "Sans Frontieres"]
-  LABELS = ["Journal de 8H", "Journal de 13H", "Journal de 20H", "Sans Frontieres"]
+  # PROGRAMS = ["8h", "13h", "20h", "Sans Frontieres"]
+  PROGRAMS = ["8h", "13h", "20h"]
+  # LABELS = ["Journal de 8H", "Journal de 13H", "Journal de 20H", "Sans Frontieres"]
+  LABELS = ["Journal de 8H", "Journal de 13H", "Journal de 20H"]
   PLAYERS = [
     "http://jt.france2.fr/player/8h/index-fr.php",
     "http://jt.france2.fr/player/13h/index-fr.php",
